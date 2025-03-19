@@ -10,7 +10,9 @@ async function fetchMovies() {
       );
     }
     const data = await response.json();
+    console.log(data);
     allMovies = data.movies;
+    console.log(allMovies);
 
     renderMovies(allMovies);
   } catch (error) {
@@ -19,7 +21,7 @@ async function fetchMovies() {
 }
 
 function renderMovies(movies) {
-  const container = document.getElementById("moviesContainer");
+  const container = document.getElementsByClassName("moviesContainer")[0];
   container.innerHTML = "";
 
   if (!Array.isArray(movies)) {
@@ -29,25 +31,25 @@ function renderMovies(movies) {
 
   movies.forEach((movie) => {
     const card = document.createElement("div");
-    card.className = "movie-card";
+    card.className = "movieCard";
 
     const imgEl = document.createElement("img");
-    imgEl.src = movie.img || "";
+    imgEl.src = movie.img;
 
     const movieTitle = document.createElement("div");
     movieTitle.className = "movieTitle";
     movieTitle.innerHTML = `${movie.title}`;
 
     const movieYear = document.createElement("div");
-    movieYear.className = "movie-info";
+    movieYear.className = "movieInfo";
     movieYear.innerHTML = `<strong>Year:</strong> ${movie.year}`;
 
     const movieGenre = document.createElement("div");
-    movieGenre.className = "movie-info";
+    movieGenre.className = "movieInfo";
     movieGenre.innerHTML = `<strong>Genre:</strong> ${movie.genre.join(", ")}`;
 
     const movieImdb = document.createElement("div");
-    movieImdb.className = "movie-info";
+    movieImdb.className = "movieInfo";
     movieImdb.innerHTML = `<strong>IMDB rating:</strong> ${movie.imdb_rating}`;
 
     card.appendChild(imgEl);
@@ -62,7 +64,7 @@ function renderMovies(movies) {
 
 function filterMovies() {
   const searchInput = document
-    .getElementById("searchInput")
+    .getElementsByClassName("searchInput")[0]
     .value.toLowerCase();
   const filtered = allMovies.filter((movie) =>
     movie.title.toLowerCase().includes(searchInput)
@@ -72,4 +74,11 @@ function filterMovies() {
 
 fetchMovies();
 
-document.getElementById("searchBtn").addEventListener("click", filterMovies);
+document
+  .getElementsByClassName("search")[0]
+  .addEventListener("click", filterMovies);
+document.addEventListener("keydown", function (event) {
+  if (event === "Enter") {
+    filterMovies();
+  }
+});
