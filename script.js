@@ -70,6 +70,6 @@ function filterMovies() {
   renderMovies(filtered);
 }
 
-window.addEventListener("DOMContentLoaded", fetchMovies);
+fetchMovies();
 
 document.getElementById("searchBtn").addEventListener("click", filterMovies);
