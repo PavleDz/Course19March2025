@@ -78,7 +78,7 @@ document
   .getElementsByClassName("search")[0]
   .addEventListener("click", filterMovies);
 document.addEventListener("keydown", function (event) {
-  if (event === "Enter") {
+  if (event.key == "Enter") {
     filterMovies();
   }
 });
